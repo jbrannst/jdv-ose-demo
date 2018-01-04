@@ -22,10 +22,23 @@ echo 'Creating a secret around the datasource properties'
 oc secrets new datavirt-app-config datasources.properties
 echo 'Deploying JDV quickstart template with default values'
 oc new-app datavirt63-extensions-support-s2i -p SOURCE_REPOSITORY_URL=https://github.com/cvanball/jdv-ose-demo -p CONTEXT_DIR=vdb -p EXTENSIONS_REPOSITORY_URL=https://github.com/cvanball/jdv-ose-demo -p EXTENSIONS_DIR=extensions -p TEIID_USERNAME=teiidUser -p TEIID_PASSWORD=redhat1!
+MINISHIFT_DOMAIN=$(minishift ip).nip.io
 echo '==============================================='
 echo 'The following urls will allow you to access the vdbs (of which there are two) via OData2 and OData4:'
 echo '==============================================='
 echo 'ODATA 2'
-echo 'Metadata for Country web service - http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata/country-ws/$metadata'
-echo 'Querying data from Country web service - http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata/country-ws/country.Countries?$format=json'
-echo 'Querying data from Country web service via primary key - http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata/country-ws/country.Countries(‘Zimbabwe’)?$format=json'
+echo "Metadata for Country web service - http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata/country-ws/$metadata"
+echo "Querying data from Country web service - http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata/country-ws/country.Countries?$format=json"
+echo "Querying data from Country web service via primary key - http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata/country-ws/country.Countries(‘Zimbabwe’)?$format=json"
+echo "Metadata for Country web service - http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata/country-ws/$metadata"
+echo "Querying data from Country web service - http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata/country-ws/country.Countries?$format=json"
+echo "Querying data from Country web service via primary key - http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata/country-ws/country.Countries(‘Zimbabwe’)?$format=json"
+echo "Querying data from Country web service and returning specific fields - http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata/country-ws/country.Countries?$select=name&$format=json"
+echo "Querying data from Country web service and showing top 5 results - http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata/country-ws/country.Countries?$top=5&$format=json"
+echo '==============================================='
+echo 'ODATA 4'
+echo "http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata4/country-ws/country/$metadata"
+echo "http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata4/country-ws/country/Countries?$format=json"
+echo "http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata4/country-ws/country/Countries(‘Zimbabwe’)?$format=json"
+echo "http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata4/country-ws/country/Countries?$select=name&$format=json"
+echo "http://datavirt-app-jdv-demo.$MINISHIFT_DOMAIN/odata4/country-ws/country/Countries?$top=5&$format=json"
