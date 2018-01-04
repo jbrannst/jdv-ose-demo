@@ -4,8 +4,10 @@ oc login -u admin -p admin
 echo 'Switching to the openshift project'
 oc project openshift
 echo 'Creating the image stream for the OpenShift datavirt image'
+oc delete is jboss-datavirt63-openshift
 oc create -f https://raw.githubusercontent.com/cvanball/jdv-ose-demo/master/extensions/is.json
 echo 'Creating the s2i quickstart template. This will live in the openshift namespace and be available to all projects'
+oc delete template datavirt63-extensions-support-s2i
 oc create -n openshift -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/datavirt/datavirt63-extensions-support-s2i.json
 oc login -u developer -p developer
 echo 'Creating a new project called jdv-demo'
@@ -27,12 +29,3 @@ echo 'ODATA 2'
 echo 'Metadata for Country web service - http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata/country-ws/$metadata'
 echo 'Querying data from Country web service - http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata/country-ws/country.Countries?$format=json'
 echo 'Querying data from Country web service via primary key - http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata/country-ws/country.Countries(‘Zimbabwe’)?$format=json'
-echo 'Querying data from Country web service and returning specific fields - http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata/country-ws/country.Countries?$select=name&$format=json'
-echo 'Querying data from Country web service and showing top 5 results - http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata/country-ws/country.Countries?$top=5&$format=json'
-echo '==============================================='
-echo 'ODATA 4'
-echo 'http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata4/country-ws/country/$metadata'
-echo 'http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata4/country-ws/country/Countries?$format=json'
-echo 'http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata4/country-ws/country/Countries(‘Zimbabwe’)?$format=json'
-echo 'http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata4/country-ws/country/Countries?$select=name&$format=json'
-echo 'http://datavirt-app-jdv-demo.rhel-cdk.10.1.2.2.xip.io/odata4/country-ws/country/Countries?$top=5&$format=json'
